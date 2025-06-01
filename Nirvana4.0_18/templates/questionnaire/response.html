@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ condition }} Assessment Results</title>  
+    <link rel="icon" type="image/png" href="/static/img/4.png" />
+</head>
+<style>
+    /* styles.css */
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #DEF5E5;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+.container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 1.5rem;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.result-container h1 {
+    text-align: center;
+    font-size: 2rem;
+    color: #379683;
+    margin-bottom: 1rem;
+}
+
+.intro p,
+.disclaimer p,
+.diagnosis p {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 0.5rem;
+}
+
+.score-section {
+    text-align: center;
+    margin: 2rem 0;
+}
+
+.score {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin: 0.5rem 0;
+    padding: 1rem;
+    border-radius: 8px;
+    display: inline-block;
+    min-width: 150px;
+}
+
+.low-score {
+    background-color: #DEF5E5;
+    color: #246a5f;
+}
+
+.moderate-score {
+    background-color: #9ED5C5;
+    color: #244b47;
+}
+
+.high-score {
+    background-color: #379683;
+    color: white;
+}
+
+.score-percentage {
+    font-size: 1.1rem;
+    color: #555;
+    margin-top: 0.5rem;
+}
+
+.status {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: 0.5rem 0;
+}
+
+.diagnosis p {
+    font-style: italic;
+    color: #555;
+}
+
+.remedies h2 {
+    margin-top: 2rem;
+    color: #379683;
+}
+
+.remedies ul {
+    list-style-type: disc;
+    padding-left: 2rem;
+    line-height: 1.6;
+}
+
+.remedies li {
+    margin-bottom: 0.5rem;
+}
+
+.disclaimer {
+    background-color: #DEF5E5;
+    padding: 1rem;
+    border-left: 4px solid #379683;
+    margin-top: 2rem;
+    border-radius: 8px;
+}
+
+.high-score-notice {
+    margin-top: 1rem;
+    padding: 1rem;
+    background-color: #f8f1ef;
+    border-left: 4px solid #379683;
+    border-radius: 6px;
+}
+
+.high-score-notice ul {
+    padding-left: 1.5rem;
+    margin-top: 0.5rem;
+}
+
+.navigation {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.btn {
+    background-color: #379683;
+    color: white;
+    text-decoration: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 25px;
+    margin: 0 0.5rem;
+    display: inline-block;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #2b7568;
+}
+
+</style>
+<body>
+    <div class="container">
+        <div class="result-container">
+            <h1>{{ condition }} Assessment Results</h1>
+            
+            <div class="intro">
+                <p>Below are the results based on your responses to the {{ condition }} questionnaire.</p>
+                <p><strong>Remember:</strong> This assessment is not a clinical diagnosis. For a proper evaluation, please consult with a qualified healthcare professional.</p>
+            </div>
+            
+            <div class="score-section">
+                <h2>Your Score</h2>
+                <div class="score {% if percentage >= 75 %}high-score{% elif percentage >= 50 %}moderate-score{% else %}low-score{% endif %}">
+                    {{ raw_score }}/{{ max_score }}
+                </div>
+                <div class="score-percentage">
+                    ({{ percentage }}%)
+                </div>
+                
+                <div class="status">
+                    {{ status }}
+                </div>
+                
+                <div class="diagnosis">
+                    <p>{{ diagnosis }}</p>
+                </div>
+            </div>
+            
+            <div class="remedies">
+                <h2>Here are some suggestions that may be helpful:</h2>                
+                <ul>
+                    {% for remedy in remedies %}
+                    <li>{{ remedy }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            
+            <div class="disclaimer">
+                <h3>Important Notice</h3>
+                <p>This assessment is for informational purposes only and is not a substitute for professional medical advice, diagnosis, or treatment.</p>
+                
+                {% if percentage >= 75 or (condition|lower == "depression" and raw_score >= 15) %}
+                <div class="high-score-notice">
+                    <p><strong>Your score indicates a high level of symptoms.</strong> We strongly encourage you to speak with a healthcare provider about these results.</p>
+                    
+                    {% if condition|lower == "depression" %}
+                    <p>If you're having thoughts of suicide or self-harm, please seek immediate help:</p>
+                    <ul>
+                        <li>National Suicide Prevention Lifeline: 988 or 1-800-273-8255</li>
+                        <li>Crisis Text Line: Text HOME to 741741</li>
+                        <li>Or go to your nearest emergency room</li>
+                    </ul>
+                    {% endif %}
+                </div>
+                {% endif %}
+            </div>
+            
+            <div class="navigation">
+                <a href="{{ url_for('test_home') }}" class="btn">Return to Home</a>
+                <a href="{{ url_for('questionnaire', form_name=condition.lower()) }}" class="btn">Retake Assessment</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

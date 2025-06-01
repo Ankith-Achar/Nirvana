@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADHD Assessment Questionnaire</title>
+    <link rel="icon" type="image/png" href="/static/img/4.png" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>ADHD Assessment</h1>
+        
+        <div class="intro">
+            <p>This questionnaire is designed to help assess symptoms commonly associated with Attention-Deficit/Hyperactivity Disorder (ADHD). Please answer each question honestly, considering how you've felt over the past six months.</p>
+            <p>Rate each item on a scale from Never to Very Often.</p>
+            <p><strong>Important:</strong> This is not a diagnostic tool. If you're experiencing distress, please consult a mental health professional.</p>
+        </div>
+        
+        <div class="form-container">
+            <form action="{{ url_for('submit') }}" method="post">
+                <input type="hidden" name="condition" value="adhd">
+                
+                <div class="question">
+                    <p>1. How often do you have trouble wrapping up the final details of a project, once the challenging parts have been done?</p>
+                    <div class="likert-scale">
+                        <div class="likert-option">
+                            <input type="radio" id="q1-0" name="q1" value="0" required>
+                            <label for="q1-0">Never</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q1-1" name="q1" value="1">
+                            <label for="q1-1">Rarely</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q1-2" name="q1" value="2">
+                            <label for="q1-2">Sometimes</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q1-3" name="q1" value="3">
+                            <label for="q1-3">Often</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q1-4" name="q1" value="4">
+                            <label for="q1-4">Very Often</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <p>2. How often do you have difficulty getting things in order when you have to do a task that requires organization?</p>
+                    <div class="likert-scale">
+                        <div class="likert-option">
+                            <input type="radio" id="q2-0" name="q2" value="0" required>
+                            <label for="q2-0">Never</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q2-1" name="q2" value="1">
+                            <label for="q2-1">Rarely</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q2-2" name="q2" value="2">
+                            <label for="q2-2">Sometimes</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q2-3" name="q2" value="3">
+                            <label for="q2-3">Often</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q2-4" name="q2" value="4">
+                            <label for="q2-4">Very Often</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <p>3. How often do you have problems remembering appointments or obligations?</p>
+                    <div class="likert-scale">
+                        <div class="likert-option">
+                            <input type="radio" id="q3-0" name="q3" value="0" required>
+                            <label for="q3-0">Never</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q3-1" name="q3" value="1">
+                            <label for="q3-1">Rarely</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q3-2" name="q3" value="2">
+                            <label for="q3-2">Sometimes</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q3-3" name="q3" value="3">
+                            <label for="q3-3">Often</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q3-4" name="q3" value="4">
+                            <label for="q3-4">Very Often</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <p>4. When you have a task that requires a lot of thought, how often do you avoid or delay getting started?</p>
+                    <div class="likert-scale">
+                        <div class="likert-option">
+                            <input type="radio" id="q4-0" name="q4" value="0" required>
+                            <label for="q4-0">Never</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q4-1" name="q4" value="1">
+                            <label for="q4-1">Rarely</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q4-2" name="q4" value="2">
+                            <label for="q4-2">Sometimes</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q4-3" name="q4" value="3">
+                            <label for="q4-3">Often</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q4-4" name="q4" value="4">
+                            <label for="q4-4">Very Often</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <p>5. How often do you fidget or squirm with your hands or feet when you have to sit down for a long time?</p>
+                    <div class="likert-scale">
+                        <div class="likert-option">
+                            <input type="radio" id="q5-0" name="q5" value="0" required>
+                            <label for="q5-0">Never</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q5-1" name="q5" value="1">
+                            <label for="q5-1">Rarely</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q5-2" name="q5" value="2">
+                            <label for="q5-2">Sometimes</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q5-3" name="q5" value="3">
+                            <label for="q5-3">Often</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q5-4" name="q5" value="4">
+                            <label for="q5-4">Very Often</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <p>6. How often do you feel overly active and compelled to do things, like you were driven by a motor?</p>
+                    <div class="likert-scale">
+                        <div class="likert-option">
+                            <input type="radio" id="q6-0" name="q6" value="0" required>
+                            <label for="q6-0">Never</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q6-1" name="q6" value="1">
+                            <label for="q6-1">Rarely</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q6-2" name="q6" value="2">
+                            <label for="q6-2">Sometimes</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q6-3" name="q6" value="3">
+                            <label for="q6-3">Often</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q6-4" name="q6" value="4">
+                            <label for="q6-4">Very Often</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <p>7. How often do you make careless mistakes when you have to work on a boring or difficult project?</p>
+                    <div class="likert-scale">
+                        <div class="likert-option">
+                            <input type="radio" id="q7-0" name="q7" value="0" required>
+                            <label for="q7-0">Never</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q7-1" name="q7" value="1">
+                            <label for="q7-1">Rarely</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q7-2" name="q7" value="2">
+                            <label for="q7-2">Sometimes</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q7-3" name="q7" value="3">
+                            <label for="q7-3">Often</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q7-4" name="q7" value="4">
+                            <label for="q7-4">Very Often</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <p>8. How often do you have difficulty keeping your attention when you are doing boring or repetitive work?</p>
+                    <div class="likert-scale">
+                        <div class="likert-option">
+                            <input type="radio" id="q8-0" name="q8" value="0" required>
+                            <label for="q8-0">Never</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q8-1" name="q8" value="1">
+                            <label for="q8-1">Rarely</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q8-2" name="q8" value="2">
+                            <label for="q8-2">Sometimes</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q8-3" name="q8" value="3">
+                            <label for="q8-3">Often</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q8-4" name="q8" value="4">
+                            <label for="q8-4">Very Often</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <p>9. How often do you have difficulty concentrating on what people say to you, even when they are speaking to you directly?</p>
+                    <div class="likert-scale">
+                        <div class="likert-option">
+                            <input type="radio" id="q9-0" name="q9" value="0" required>
+                            <label for="q9-0">Never</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q9-1" name="q9" value="1">
+                            <label for="q9-1">Rarely</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q9-2" name="q9" value="2">
+                            <label for="q9-2">Sometimes</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q9-3" name="q9" value="3">
+                            <label for="q9-3">Often</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q9-4" name="q9" value="4">
+                            <label for="q9-4">Very Often</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <p>10. How often do you misplace or have difficulty finding things at home or at work?</p>
+                    <div class="likert-scale">
+                        <div class="likert-option">
+                            <input type="radio" id="q10-0" name="q10" value="0" required>
+                            <label for="q10-0">Never</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q10-1" name="q10" value="1">
+                            <label for="q10-1">Rarely</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q10-2" name="q10" value="2">
+                            <label for="q10-2">Sometimes</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q10-3" name="q10" value="3">
+                            <label for="q10-3">Often</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q10-4" name="q10" value="4">
+                            <label for="q10-4">Very Often</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <p>11. How often are you distracted by activity or noise around you?</p>
+                    <div class="likert-scale">
+                        <div class="likert-option">
+                            <input type="radio" id="q11-0" name="q11" value="0" required>
+                            <label for="q11-0">Never</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q11-1" name="q11" value="1">
+                            <label for="q11-1">Rarely</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q11-2" name="q11" value="2">
+                            <label for="q11-2">Sometimes</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q11-3" name="q11" value="3">
+                            <label for="q11-3">Often</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q11-4" name="q11" value="4">
+                            <label for="q11-4">Very Often</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <p>12. How often do you leave your seat in meetings or other situations in which you are expected to remain seated?</p>
+                    <div class="likert-scale">
+                        <div class="likert-option">
+                            <input type="radio" id="q12-0" name="q12" value="0" required>
+                            <label for="q12-0">Never</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q12-1" name="q12" value="1">
+                            <label for="q12-1">Rarely</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q12-2" name="q12" value="2">
+                            <label for="q12-2">Sometimes</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q12-3" name="q12" value="3">
+                            <label for="q12-3">Often</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q12-4" name="q12" value="4">
+                            <label for="q12-4">Very Often</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <p>13. How often do you feel restless or fidgety?</p>
+                    <div class="likert-scale">
+                        <div class="likert-option">
+                            <input type="radio" id="q13-0" name="q13" value="0" required>
+                            <label for="q13-0">Never</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q13-1" name="q13" value="1">
+                            <label for="q13-1">Rarely</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q13-2" name="q13" value="2">
+                            <label for="q13-2">Sometimes</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q13-3" name="q13" value="3">
+                            <label for="q13-3">Often</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q13-4" name="q13" value="4">
+                            <label for="q13-4">Very Often</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <p>14. How often do you have difficulty unwinding and relaxing when you have time to yourself?</p>
+                    <div class="likert-scale">
+                        <div class="likert-option">
+                            <input type="radio" id="q14-0" name="q14" value="0" required>
+                            <label for="q14-0">Never</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q14-1" name="q14" value="1">
+                            <label for="q14-1">Rarely</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q14-2" name="q14" value="2">
+                            <label for="q14-2">Sometimes</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q14-3" name="q14" value="3">
+                            <label for="q14-3">Often</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q14-4" name="q14" value="4">
+                            <label for="q14-4">Very Often</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <p>15. How often do you find yourself talking too much when you are in social situations?</p>
+                    <div class="likert-scale">
+                        <div class="likert-option">
+                            <input type="radio" id="q15-0" name="q15" value="0" required>
+                            <label for="q15-0">Never</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q15-1" name="q15" value="1">
+                            <label for="q15-1">Rarely</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q15-2" name="q15" value="2">
+                            <label for="q15-2">Sometimes</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q15-3" name="q15" value="3">
+                            <label for="q15-3">Often</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q15-4" name="q15" value="4">
+                            <label for="q15-4">Very Often</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <p>16. When you're in a conversation, how often do you find yourself finishing the sentences of the people you are talking to, before they can finish them themselves?</p>
+                    <div class="likert-scale">
+                        <div class="likert-option">
+                            <input type="radio" id="q16-0" name="q16" value="0" required>
+                            <label for="q16-0">Never</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q16-1" name="q16" value="1">
+                            <label for="q16-1">Rarely</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q16-2" name="q16" value="2">
+                            <label for="q16-2">Sometimes</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q16-3" name="q16" value="3">
+                            <label for="q16-3">Often</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q16-4" name="q16" value="4">
+                            <label for="q16-4">Very Often</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <p>17. How often do you have difficulty waiting your turn in situations when turn taking is required?</p>
+                    <div class="likert-scale">
+                        <div class="likert-option">
+                            <input type="radio" id="q17-0" name="q17" value="0" required>
+                            <label for="q17-0">Never</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q17-1" name="q17" value="1">
+                            <label for="q17-1">Rarely</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q17-2" name="q17" value="2">
+                            <label for="q17-2">Sometimes</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q17-3" name="q17" value="3">
+                            <label for="q17-3">Often</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q17-4" name="q17" value="4">
+                            <label for="q17-4">Very Often</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <p>18. How often do you interrupt others when they are busy?</p>
+                    <div class="likert-scale">
+                        <div class="likert-option">
+                            <input type="radio" id="q18-0" name="q18" value="0" required>
+                            <label for="q18-0">Never</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q18-1" name="q18" value="1">
+                            <label for="q18-1">Rarely</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q18-2" name="q18" value="2">
+                            <label for="q18-2">Sometimes</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q18-3" name="q18" value="3">
+                            <label for="q18-3">Often</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q18-4" name="q18" value="4">
+                            <label for="q18-4">Very Often</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <button type="submit" class="submit-btn">Submit Assessment</button>
+                <a href="{{ url_for('test_home') }}" class="back-link">Back to Home</a>
+
+            </form>
+        </div>
+        
+        <div class="disclaimer">
+            <h3>Important Notice</h3>
+            <p>This questionnaire is for educational and self-assessment purposes only. It is not designed to diagnose ADHD.</p>
+            <p>If you're experiencing significant difficulties that are impacting your quality of life, please consult with a healthcare professional for proper evaluation and support.</p>
+            <ul>
+                <li>ADHD affects both children and adults</li>
+                <li>Symptoms may present differently across different age groups and genders</li>
+                <li>Only qualified healthcare professionals can provide a formal diagnosis</li>
+            </ul>
+        </div>
+        
+    </div>
+</body>
+</html>

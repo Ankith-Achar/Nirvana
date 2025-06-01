@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nova - Mental Health Support</title>
+    <link rel="icon" type="image/png" href="/static/img/4.png" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+    <style>
+        .transition-transform {
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .typing-indicator {
+            display: none;
+            font-style: italic;
+            color: #888;
+            margin: 0.5rem 0;
+        }
+    </style>
+</head>
+
+<body class="bg-[#DEF5E5] text-gray-800 min-h-screen flex flex-col">
+    <!-- Overlay -->
+    <div id="overlay" class="fixed inset-0 bg-black bg-opacity-40 z-30 hidden" onclick="toggleSidebar()"></div>
+
+    <!-- Sidebar -->
+    <div id="sidebar"
+        class="w-60 bg-[#9ED5C5] p-6 fixed inset-y-0 left-0 transform -translate-x-full transition-transform z-40">
+        <h2 class="text-2xl font-bold mb-6 text-gray-800">Dashboard</h2>
+        <nav class="flex flex-col space-y-4 text-gray-700">
+            <a href="/home" class="hover:underline">Home</a>
+            <a href="/about" class="hover:underline">About Us</a>
+            <a href="/contact" class="hover:underline">Contact Us</a>
+            <a href="/login" class="hover:underline text-red-700">Logout</a>
+        </nav>
+    </div>
+
+    <!-- Main Content -->
+    <main class="flex-grow ml-0 w-full">
+        <!-- Toggle Button + Brand -->
+        <div class="flex items-center gap-3 p-4">
+            <button onclick="toggleSidebar()" class="text-3xl focus:outline-none text-gray-800"
+                aria-label="Open Sidebar">
+                ☰
+            </button>
+            <span class="text-2xl font-semibold text-[#379683]">Nirvana</span>
+        </div>
+
+        <!-- Chat Container -->
+        <div class="max-w-3xl mx-auto px-4 py-6">
+            <div class="bg-[#BCEAD5] rounded-xl shadow-lg overflow-hidden">
+                <!-- Chat Header -->
+                <div class="bg-[#379683] p-4 text-center">
+                    <h1 class="text-3xl font-bold text-white">NOVA</h1>
+                    <h2 class="text-xl text-white">Mental Health Support System</h2>
+                </div>
+
+                <!-- Chat History -->
+                <div class="chat-history space-y-4 p-6 max-h-96 overflow-y-auto bg-white bg-opacity-50">
+                    {% for message in chat_history %}
+                    <div
+                        class="message animate-fade-in {% if message.role == 'user' %}user-message{% else %}assistant-message{% endif %}">
+                        {{ message.content }}
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div id="assistant-typing" class="typing-indicator px-6 py-2">
+                    Nova is typing...
+                </div>
+
+                <!-- Chat Input -->
+                <div class="p-4 bg-[#9ED5C5] border-t border-gray-200">
+                    <form onsubmit="event.preventDefault(); sendMessage();" class="flex space-x-2">
+                        <input type="text" id="user-input" placeholder="Type your message here..."
+                            oninput="handleTyping()" maxlength="500"
+                            class="flex-1 p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#379683]">
+                        <button type="submit"
+                            class="bg-[#379683] text-white p-3 rounded-lg hover:bg-opacity-90 transition-colors">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Buttons Container -->
+            <div class="flex justify-between mt-6">
+
+                <!-- Start New Chat Button -->
+                <form method="POST" action="/clear">
+                    <button type="submit"
+                        class="px-4 py-2 bg-[#BCEAD5] text-gray-800 rounded-lg border border-[#9ED5C5] shadow-md transition-transform duration-200 hover:scale-105 flex items-center">
+                        <i class="fas fa-sync-alt mr-2"></i> Start New Chat
+                    </button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer - Always at bottom of screen -->
+    <footer class="py-6 bg-[#BCEAD5] text-gray-700">
+        <div class="max-w-3xl mx-auto px-4 text-center">
+            <p class="text-sm mb-4">
+                © 2025 Nirvana. All rights reserved.
+                <i class="fas fa-leaf text-2xl text-[#379683]"></i>
+            </p>
+            <div class="flex justify-center space-x-6 text-lg">
+                <a href="#" class="hover:text-[#379683]"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="hover:text-[#379683]"><i class="fab fa-facebook"></i></a>
+                <a href="#" class="hover:text-[#379683]"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            const isOpen = !sidebar.classList.contains('-translate-x-full');
+
+            if (isOpen) {
+                sidebar.classList.add('-translate-x-full');
+                overlay.classList.add('hidden');
+            } else {
+                sidebar.classList.remove('-translate-x-full');
+                overlay.classList.remove('hidden');
+            }
+        }
+
+        let typingTimer;
+
+        function showTypingIndicator(role) {
+            const indicator = document.getElementById(`${role}-typing`);
+            if (indicator) indicator.style.display = 'block';
+        }
+
+        function hideTypingIndicator(role) {
+            const indicator = document.getElementById(`${role}-typing`);
+            if (indicator) indicator.style.display = 'none';
+        }
+
+        async function sendMessage() {
+            const input = document.getElementById('user-input');
+            const message = input.value.trim();
+
+            if (message) {
+                input.value = '';
+                const chatHistory = document.querySelector('.chat-history');
+
+                chatHistory.innerHTML += 
+                    `<div class="message user-message animate-fade-in bg-[#9ED5C5] ml-[20%] rounded-lg p-3 shadow-sm">
+                        ${message}
+                    </div>`
+                ;
+
+                chatHistory.scrollTop = chatHistory.scrollHeight;  // Scroll to bottom
+
+                showTypingIndicator('assistant');
+
+                try {
+                    const response = await fetch('/send_message', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ message: message })
+                    });
+
+                    const data = await response.json();
+
+                    if (data.error) {
+                        showError(data.error);
+                        return;
+                    }
+
+                    await new Promise(resolve => setTimeout(resolve, data.response_time * 1000));
+
+                    chatHistory.innerHTML += 
+                        `<div class="message assistant-message animate-fade-in bg-white mr-[20%] rounded-lg p-3 shadow-sm border border-[#379683] border-opacity-20">
+                            ${data.response}
+                        </div>`
+                    ;
+
+                    chatHistory.scrollTop = chatHistory.scrollHeight;  // Auto-scroll to bottom
+
+                } catch (error) {
+                    showError('An error occurred. Please try again.');
+                } finally {
+                    hideTypingIndicator('assistant');
+                }
+            }
+        }
+
+        function handleTyping() {
+            clearTimeout(typingTimer);
+            showTypingIndicator('user');
+
+            fetch('/typing_status', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ typing: true })
+            });
+
+            typingTimer = setTimeout(() => {
+                hideTypingIndicator('user');
+                fetch('/typing_status', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ typing: false })
+                });
+            }, 1000);
+        }
+
+        function showError(message) {
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'error-message bg-red-100 text-red-700 p-3 rounded-lg animate-fade-in';
+            errorDiv.textContent = message;
+            document.querySelector('.chat-history').appendChild(errorDiv);
+            setTimeout(() => errorDiv.remove(), 5000);
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bipolar Disorder Assessment Questionnaire</title>
+    <link rel="icon" type="image/png" href="/static/img/4.png" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Bipolar Disorder Assessment</h1>
+
+        <div class="intro">
+            <p>This questionnaire is designed to help assess symptoms commonly associated with Bipolar Disorder. Please answer each question honestly, considering if you have ever experienced these symptoms during a distinct period when you were not your usual self.</p>
+            <p>For questions 2-12, rate each item on a scale from 0 (Not at all) to 5 (Extremely/Almost always).</p>
+            <p><strong>Important:</strong> This is not a diagnostic tool. If you're experiencing mood-related symptoms, please consult a mental health professional.</p>
+        </div>
+
+        <div class="form-container">
+            <form action="{{ url_for('submit') }}" method="post">
+                <input type="hidden" name="condition" value="bipolar">
+
+                <div class="question">
+                    <p>1. Has there ever been a period of time when you were not your usual self and felt so good or hyper that other people thought you were not your normal self or were so hyper that you got into trouble?</p>
+                    <div class="likert-scale">
+                        <div class="likert-option">
+                            <input type="radio" id="q1-0" name="q1" value="0" required>
+                            <label for="q1-0">No</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q1-1" name="q1" value="5">
+                            <label for="q1-1">Yes</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <p>2. During such periods, how often were you so irritable that you shouted at people or started fights or arguments?</p>
+                    <div class="likert-scale">
+                        <div class="likert-option">
+                            <input type="radio" id="q2-0" name="q2" value="0" required>
+                            <label for="q2-0">Not at all</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q2-1" name="q2" value="1">
+                            <label for="q2-1">Rarely</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q2-2" name="q2" value="2">
+                            <label for="q2-2">Sometimes</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q2-3" name="q2" value="3">
+                            <label for="q2-3">Often</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q2-4" name="q2" value="4">
+                            <label for="q2-4">Very often</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q2-5" name="q2" value="5">
+                            <label for="q2-5">Almost always</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <p>3. During such periods, how often did you feel much more self-confident than usual?</p>
+                    <div class="likert-scale">
+                        <div class="likert-option">
+                            <input type="radio" id="q3-0" name="q3" value="0" required>
+                            <label for="q3-0">Not at all</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q3-1" name="q3" value="1">
+                            <label for="q3-1">Rarely</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q3-2" name="q3" value="2">
+                            <label for="q3-2">Sometimes</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q3-3" name="q3" value="3">
+                            <label for="q3-3">Often</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q3-4" name="q3" value="4">
+                            <label for="q3-4">Very often</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q3-5" name="q3" value="5">
+                            <label for="q3-5">Almost always</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <p>4. During such periods, how often did you get much less sleep than usual and found you didn't really miss it?</p>
+                    <div class="likert-scale">
+                        <div class="likert-option">
+                            <input type="radio" id="q4-0" name="q4" value="0" required>
+                            <label for="q4-0">Not at all</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q4-1" name="q4" value="1">
+                            <label for="q4-1">Rarely</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q4-2" name="q4" value="2">
+                            <label for="q4-2">Sometimes</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q4-3" name="q4" value="3">
+                            <label for="q4-3">Often</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q4-4" name="q4" value="4">
+                            <label for="q4-4">Very often</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q4-5" name="q4" value="5">
+                            <label for="q4-5">Almost always</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <p>5. During such periods, how often were you much more talkative or spoke much faster than usual?</p>
+                    <div class="likert-scale">
+                        <div class="likert-option">
+                            <input type="radio" id="q5-0" name="q5" value="0" required>
+                            <label for="q5-0">Not at all</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q5-1" name="q5" value="1">
+                            <label for="q5-1">Rarely</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q5-2" name="q5" value="2">
+                            <label for="q5-2">Sometimes</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q5-3" name="q5" value="3">
+                            <label for="q5-3">Often</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q5-4" name="q5" value="4">
+                            <label for="q5-4">Very often</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q5-5" name="q5" value="5">
+                            <label for="q5-5">Almost always</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <p>6. During such periods, how often did thoughts race through your head or you couldn't slow your mind down?</p>
+                    <div class="likert-scale">
+                        <div class="likert-option">
+                            <input type="radio" id="q6-0" name="q6" value="0" required>
+                            <label for="q6-0">Not at all</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q6-1" name="q6" value="1">
+                            <label for="q6-1">Rarely</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q6-2" name="q6" value="2">
+                            <label for="q6-2">Sometimes</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q6-3" name="q6" value="3">
+                            <label for="q6-3">Often</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q6-4" name="q6" value="4">
+                            <label for="q6-4">Very often</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q6-5" name="q6" value="5">
+                            <label for="q6-5">Almost always</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <p>7. During such periods, how often were you so easily distracted by things around you that you had trouble concentrating or staying on track?</p>
+                    <div class="likert-scale">
+                        <div class="likert-option">
+                            <input type="radio" id="q7-0" name="q7" value="0" required>
+                            <label for="q7-0">Not at all</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q7-1" name="q7" value="1">
+                            <label for="q7-1">Rarely</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q7-2" name="q7" value="2">
+                            <label for="q7-2">Sometimes</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q7-3" name="q7" value="3">
+                            <label for="q7-3">Often</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q7-4" name="q7" value="4">
+                            <label for="q7-4">Very often</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q7-5" name="q7" value="5">
+                            <label for="q7-5">Almost always</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <p>8. During such periods, how often did you have much more energy than usual?</p>
+                    <div class="likert-scale">
+                        <div class="likert-option">
+                            <input type="radio" id="q8-0" name="q8" value="0" required>
+                            <label for="q8-0">Not at all</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q8-1" name="q8" value="1">
+                            <label for="q8-1">Rarely</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q8-2" name="q8" value="2">
+                            <label for="q8-2">Sometimes</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q8-3" name="q8" value="3">
+                            <label for="q8-3">Often</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q8-4" name="q8" value="4">
+                            <label for="q8-4">Very often</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q8-5" name="q8" value="5">
+                            <label for="q8-5">Almost always</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <p>9. During such periods, how often were you much more social or outgoing than usual, for example, you telephoned friends in the middle of the night?</p>
+                    <div class="likert-scale">
+                        <div class="likert-option">
+                            <input type="radio" id="q9-0" name="q9" value="0" required>
+                            <label for="q9-0">Not at all</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q9-1" name="q9" value="1">
+                            <label for="q9-1">Rarely</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q9-2" name="q9" value="2">
+                            <label for="q9-2">Sometimes</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q9-3" name="q9" value="3">
+                            <label for="q9-3">Often</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q9-4" name="q9" value="4">
+                            <label for="q9-4">Very often</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q9-5" name="q9" value="5">
+                            <label for="q9-5">Almost always</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <p>10. During such periods, how often were you much more interested in sex than usual?</p>
+                    <div class="likert-scale">
+                        <div class="likert-option">
+                            <input type="radio" id="q10-0" name="q10" value="0" required>
+                            <label for="q10-0">Not at all</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q10-1" name="q10" value="1">
+                            <label for="q10-1">Rarely</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q10-2" name="q10" value="2">
+                            <label for="q10-2">Sometimes</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q10-3" name="q10" value="3">
+                            <label for="q10-3">Often</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q10-4" name="q10" value="4">
+                            <label for="q10-4">Very often</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q10-5" name="q10" value="5">
+                            <label for="q10-5">Almost always</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <p>11. During such periods, how often did you do things that were unusual for you or that other people might have thought were excessive, foolish, or risky?</p>
+                    <div class="likert-scale">
+                        <div class="likert-option">
+                            <input type="radio" id="q11-0" name="q11" value="0" required>
+                            <label for="q11-0">Not at all</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q11-1" name="q11" value="1">
+                            <label for="q11-1">Rarely</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q11-2" name="q11" value="2">
+                            <label for="q11-2">Sometimes</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q11-3" name="q11" value="3">
+                            <label for="q11-3">Often</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q11-4" name="q11" value="4">
+                            <label for="q11-4">Very often</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q11-5" name="q11" value="5">
+                            <label for="q11-5">Almost always</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <p>12. During such periods, how often did spending money get you or your family into trouble?</p>
+                    <div class="likert-scale">
+                        <div class="likert-option">
+                            <input type="radio" id="q12-0" name="q12" value="0" required>
+                            <label for="q12-0">Not at all</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q12-1" name="q12" value="1">
+                            <label for="q12-1">Rarely</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q12-2" name="q12" value="2">
+                            <label for="q12-2">Sometimes</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q12-3" name="q12" value="3">
+                            <label for="q12-3">Often</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q12-4" name="q12" value="4">
+                            <label for="q12-4">Very often</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q12-5" name="q12" value="5">
+                            <label for="q12-5">Almost always</label>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn">Submit Assessment</button>
+                <a href="{{ url_for('test_home') }}" class="back-link">Back to Home</a>
+            </form>
+        </div>
+
+        <div class="disclaimer">
+            <h3>Important Notice</h3>
+            <p>This questionnaire is for educational and self-assessment purposes only. It is not designed to diagnose Bipolar Disorder.</p>
+            <p>If you're experiencing mood symptoms or concerns about your mental health, please seek professional help:</p>
+            <h3 class="text-xl font-bold mb-2">🇮🇳 Indian Helplines</h3>
+            <ul class="list-disc list-inside space-y-1 text-sm">
+                <li><strong>AASRA:</strong> +91-9820466726 (24x7 Suicide Prevention)</li>
+                <li><strong>NIMHANS Helpline:</strong> 080-46110007 (Govt. mental health support)</li>
+            </ul>
+            <h3 class="text-xl font-bold mb-2">🌍 International Helplines</h3>
+            <ul class="list-disc list-inside space-y-1 text-sm">
+                <li><strong>USA - Suicide & Crisis Lifeline:</strong> Dial 988 (24/7)</li>
+                <li><strong>Global Directory:</strong> <a href="https://findahelpline.com/" target="_blank" class="text-blue-600 underline">findahelpline.com</a></li>
+            </ul>
+        </div>
+    </div>
+</body>
+
+</html>

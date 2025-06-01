@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anxiety Assessment Questionnaire</title>
+    <link rel="icon" type="image/png" href="/static/img/4.png" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Anxiety Assessment</h1>
+        
+        <div class="intro">
+            <p>This questionnaire is designed to help assess symptoms commonly associated with anxiety. Please answer each question honestly, considering how you've felt over the past two weeks.</p>
+            <p><strong>Important:</strong> This is not a diagnostic tool. If you're experiencing distress, please consult a mental health professional.</p>
+        </div>
+        
+        <div class="form-container">
+            <form action="{{ url_for('submit') }}" method="post">
+                <input type="hidden" name="condition" value="anxiety">
+                
+                <div class="question">
+                    <p>1. Feeling nervous, anxious, or on edge</p>
+                    <div class="likert-scale">
+                        <div class="likert-option">
+                            <input type="radio" id="q1-0" name="q1" value="0" required>
+                            <label for="q1-0">Not at all</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q1-1" name="q1" value="1">
+                            <label for="q1-1">Several days</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q1-2" name="q1" value="2">
+                            <label for="q1-2">More than half the days</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q1-3" name="q1" value="3">
+                            <label for="q1-3">Nearly every day</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <p>2. Not being able to stop or control worrying</p>
+                    <div class="likert-scale">
+                        <div class="likert-option">
+                            <input type="radio" id="q2-0" name="q2" value="0" required>
+                            <label for="q2-0">Not at all</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q2-1" name="q2" value="1">
+                            <label for="q2-1">Several days</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q2-2" name="q2" value="2">
+                            <label for="q2-2">More than half the days</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q2-3" name="q2" value="3">
+                            <label for="q2-3">Nearly every day</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <p>3. Worrying too much about different things</p>
+                    <div class="likert-scale">
+                        <div class="likert-option">
+                            <input type="radio" id="q3-0" name="q3" value="0" required>
+                            <label for="q3-0">Not at all</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q3-1" name="q3" value="1">
+                            <label for="q3-1">Several days</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q3-2" name="q3" value="2">
+                            <label for="q3-2">More than half the days</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q3-3" name="q3" value="3">
+                            <label for="q3-3">Nearly every day</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <p>4. Trouble relaxing</p>
+                    <div class="likert-scale">
+                        <div class="likert-option">
+                            <input type="radio" id="q4-0" name="q4" value="0" required>
+                            <label for="q4-0">Not at all</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q4-1" name="q4" value="1">
+                            <label for="q4-1">Several days</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q4-2" name="q4" value="2">
+                            <label for="q4-2">More than half the days</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q4-3" name="q4" value="3">
+                            <label for="q4-3">Nearly every day</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <p>5. Being so restless that it is hard to sit still</p>
+                    <div class="likert-scale">
+                        <div class="likert-option">
+                            <input type="radio" id="q5-0" name="q5" value="0" required>
+                            <label for="q5-0">Not at all</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q5-1" name="q5" value="1">
+                            <label for="q5-1">Several days</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q5-2" name="q5" value="2">
+                            <label for="q5-2">More than half the days</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q5-3" name="q5" value="3">
+                            <label for="q5-3">Nearly every day</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <p>6. Becoming easily annoyed or irritable</p>
+                    <div class="likert-scale">
+                        <div class="likert-option">
+                            <input type="radio" id="q6-0" name="q6" value="0" required>
+                            <label for="q6-0">Not at all</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q6-1" name="q6" value="1">
+                            <label for="q6-1">Several days</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q6-2" name="q6" value="2">
+                            <label for="q6-2">More than half the days</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q6-3" name="q6" value="3">
+                            <label for="q6-3">Nearly every day</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <p>7. Feeling afraid, as if something awful might happen</p>
+                    <div class="likert-scale">
+                        <div class="likert-option">
+                            <input type="radio" id="q7-0" name="q7" value="0" required>
+                            <label for="q7-0">Not at all</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q7-1" name="q7" value="1">
+                            <label for="q7-1">Several days</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q7-2" name="q7" value="2">
+                            <label for="q7-2">More than half the days</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q7-3" name="q7" value="3">
+                            <label for="q7-3">Nearly every day</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <button type="submit" class="submit-btn">Submit Assessment</button>
+                <a href="{{ url_for('test_home') }}" class="back-link">Back to Home</a>
+            </form>
+        </div>
+        
+        <div class="disclaimer">
+            <h3>Important Notice</h3>
+            <p>This questionnaire is for educational and self-assessment purposes only. It is not designed to diagnose clinical anxiety disorders.</p>
+            <p>If you're experiencing severe symptoms, especially feelings of intense fear or panic, please seek immediate professional help:</p>
+            <h3 class="text-xl font-bold mb-2">🇮🇳 Indian Helplines</h3>
+            <ul class="list-disc list-inside space-y-1 text-sm">
+                <li><strong>AASRA:</strong> +91-9820466726 (24x7 Suicide Prevention)</li>
+                <li><strong>NIMHANS Helpline:</strong> 080-46110007 (Govt. mental health support)</li>
+            </ul>
+            <h3 class="text-xl font-bold mb-2">🌍 International Helplines</h3>
+            <ul class="list-disc list-inside space-y-1 text-sm">
+                <li><strong>USA - Suicide & Crisis Lifeline:</strong> Dial 988 (24/7)</li>
+                <li><strong>Global Directory:</strong> <a href="https://findahelpline.com/" target="_blank" class="text-blue-600 underline">findahelpline.com</a></li>
+            </ul>
+        </div>
+        
+    </div>
+</body>
+</html>

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard - Nirvana</title>
+    <link rel="icon" type="image/png" href="/static/img/4.png" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+    <style>
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+        }
+        
+        .transition-transform {
+            transition: transform 0.3s ease-in-out;
+        }
+    </style>
+</head>
+
+<body class="bg-[#DEF5E5] font-sans text-gray-800">
+
+    <!-- Navbar -->
+<nav class="bg-gradient-to-r from-[#9ED5C5] to-[#379683] text-white p-4 flex justify-between items-center shadow-md">
+    <div class="flex items-center space-x-3">
+        <!-- Logo Image -->
+          <img src="/static/img/4.png" alt="Nirvana Logo" class="w-25 h-20 object-contain">
+        <h2 class="text-2xl font-semibold">Nirvana Admin Dashboard</h2>
+    </div>
+    <div class="flex items-center space-x-4">
+        <span class="text-xl font-medium">Welcome, {{ admin }}</span>
+        <a href="{{ url_for('admin.admin_logout') }}" class="text-white hover:text-[#E1F5D6] flex items-center gap-2">
+            <i class="fas fa-sign-out-alt"></i> Logout
+        </a>
+    </div>
+</nav>
+
+
+    <!-- Main Container -->
+    <div class="max-w-6xl mx-auto p-6 mt-6">
+
+        <!-- Section Header -->
+        <div class="mb-6">
+            <h2 class="text-3xl font-semibold text-[#379683]">Registered Users</h2>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="mb-6">
+            <div class="relative">
+                <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+                <input type="text" class="w-full p-2 pl-10 border border-[#9ED5C5] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#379683] bg-white shadow-sm" placeholder="Search users..." onkeyup="filterUsers(this.value)" />
+            </div>
+        </div>
+
+        <!-- User Table -->
+        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+            <table class="min-w-full table-auto border-collapse">
+                <thead>
+                    <tr class="bg-[#BCEAD5] text-gray-700">
+                        <th class="px-4 py-3 text-left">Actions</th>
+                        <th class="px-4 py-3 text-left">ID</th>
+                        <th class="px-4 py-3 text-left">Username</th>
+                        <th class="px-4 py-3 text-left">Email</th>
+                        <th class="px-4 py-3 text-left">Phone</th>
+                        <th class="px-4 py-3 text-left">City</th>
+                        <th class="px-4 py-3 text-left">Gender</th>
+                    </tr>
+                </thead>
+                <tbody id="user-table">
+                    {% if users %}
+                        {% for user in users %}
+                            <tr class="text-gray-700 hover:bg-[#F3FBF8] border-b border-[#DEF5E5]">
+                                <td class="px-4 py-3">
+                                    <!-- Edit Button -->
+                                    <a href="{{ url_for('admin.edit_user', user_id=user.id) }}" class="text-[#379683] hover:text-[#2f7a68] mr-3" title="Edit User">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    
+                                    <!-- Delete Button -->
+                                    <form action="{{ url_for('admin.delete_user', user_id=user.id) }}" method="POST" style="display:inline;">
+                                        <button type="submit" class="text-red-600 hover:text-red-800" title="Delete User">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    </form>
+                                </td>
+                                <td class="px-4 py-3">{{ user.id }}</td>
+                                <td class="px-4 py-3">{{ user.username }}</td>
+                                <td class="px-4 py-3">{{ user.email }}</td>
+                                <td class="px-4 py-3">{{ user.phone }}</td>
+                                <td class="px-4 py-3">{{ user.city }}</td>
+                                <td class="px-4 py-3">{{ user.gender }}</td>
+                            </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td colspan="7" class="text-center px-4 py-4 text-gray-500">No users found.</td>
+                        </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- No Results Message (Hidden by default) -->
+        <div id="no-results" class="text-center text-gray-500 hidden mt-4 p-4 bg-white rounded-lg shadow-sm">
+            <i class="fas fa-search text-[#9ED5C5] text-xl mb-2"></i>
+            <p>No users found matching your search.</p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+<footer class="bg-[#9ED5C5] text-gray-800 mt-8 py-6 text-base w-full">
+    <div class="max-w-3xl mx-auto px-4 text-center">
+        <p class="text-sm md:text-base font-medium">
+            © 2025 Nirvana. All rights reserved.
+            <i class="fas fa-leaf text-sm text-[#379683]"></i>
+        </p>
+    </div>
+</footer>
+
+
+    <!-- JavaScript for Filtering Users -->
+    <script>
+        function filterUsers(value) {
+            const rows = document.querySelectorAll("#user-table tr");
+            let found = false;
+            rows.forEach(row => {
+                const text = row.innerText.toLowerCase();
+                if (text.includes(value.toLowerCase())) {
+                    row.style.display = "";
+                    found = true;
+                } else {
+                    row.style.display = "none";
+                }
+            });
+            document.getElementById("no-results").style.display = found ? "none" : "block";
+        }
+    </script>
+
+</body>
+
+</html>

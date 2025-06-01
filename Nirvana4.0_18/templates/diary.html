@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Digital Diary - Nirvana</title>
+      <link rel="icon" type="image/png" href="/static/img/4.png" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      .transition-transform {
+        transition: transform 0.3s ease-in-out;
+      }
+      
+      .animate-fade-in {
+        animation: fadeIn 0.5s ease-in-out;
+      }
+      
+      @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+
+      .entry-content {
+        display: none;
+      }
+      
+      .hidden {
+        display: none;
+      }
+    </style>
+</head>
+<body class="bg-[#DEF5E5] text-gray-800">
+    <!-- Overlay -->
+    <div id="overlay" class="fixed inset-0 bg-black bg-opacity-40 z-30 hidden" onclick="toggleSidebar()"></div>
+
+    <!-- Sidebar -->
+    <div id="sidebar" class="w-60 bg-[#9ED5C5] p-6 fixed inset-y-0 left-0 transform -translate-x-full transition-transform z-40">
+      <h2 class="text-2xl font-bold mb-6 text-gray-800">Dashboard</h2>
+      <nav class="flex flex-col space-y-4 text-gray-700">
+        <a href="/home" class="hover:underline">Home</a>
+        <a href="/about" class="hover:underline">About Us</a>
+        <a href="/contact" class="hover:underline">Contact Us</a>
+        <a href="/login" class="hover:underline text-red-700">Logout</a>
+      </nav>
+    </div>
+
+    <!-- Main Content -->
+    <div class="flex-1 ml-0 w-full min-h-screen">
+        <!-- Toggle Button + Brand -->
+        <div class="flex items-center gap-3 p-4">
+            <button
+                onclick="toggleSidebar()"
+                class="text-3xl focus:outline-none text-gray-800"
+                aria-label="Open Sidebar"
+            >
+                ☰
+            </button>
+            <span class="text-2xl font-semibold text-[#379683]">Nirvana</span>
+        </div>
+
+        <!-- Diary Container -->
+        <div class="max-w-3xl mx-auto px-4 py-6">
+            <div class="bg-[#BCEAD5] rounded-xl shadow-lg overflow-hidden mb-8">
+                <!-- Diary Header -->
+                <div class="bg-[#379683] p-4 text-center flex justify-between items-center">
+                    <div class="w-24"></div> <!-- Spacer for balance -->
+                    <h2 class="text-3xl font-bold text-white">My Digital Diary</h2>
+                    <div class="w-24 text-right">
+                        <a href="{{ url_for('home') }}" class="text-white hover:underline flex items-center justify-end">
+                            <span class="mr-1">Home</span>
+                            <i class="fas fa-home"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- New Entry Button and Form -->
+                <div class="p-6 border-b border-[#9ED5C5]" id="newEntrySection">
+                    <button type="button" 
+                            class="bg-[#379683] text-white py-2 px-4 rounded-lg shadow hover:bg-opacity-90 transition-colors flex items-center toggle-form-btn" 
+                            onclick="toggleNewEntryForm()">
+                        <i class="fas fa-pen mr-2"></i> Write New Entry
+                    </button>
+                    
+                    <form action="{{ url_for('diary_add') }}" method="POST" class="hidden animate-fade-in mt-4 space-y-4">
+                        <input type="text" 
+                               name="title" 
+                               placeholder="Entry Title" 
+                               required 
+                               class="w-full p-3 rounded-lg border border-[#9ED5C5] focus:outline-none focus:ring-2 focus:ring-[#379683]" />
+                        
+                        <textarea name="content" 
+                                  required 
+                                  placeholder="Write your thoughts..." 
+                                  class="w-full p-3 rounded-lg border border-[#9ED5C5] focus:outline-none focus:ring-2 focus:ring-[#379683] h-32"></textarea>
+                        
+                        <button type="submit" 
+                                class="bg-[#379683] text-white py-2 px-6 rounded-lg shadow hover:bg-opacity-90 transition-colors">
+                            <i class="fas fa-save mr-2"></i> Save Entry
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Search Section -->
+                <div class="p-6 border-b border-[#9ED5C5]">
+                    <h3 class="text-xl font-semibold mb-3 text-[#379683]">Search Entries</h3>
+                    
+                    <form action="{{ url_for('diary_search') }}" method="GET" class="space-y-4">
+                        <div class="flex flex-col sm:flex-row gap-4">
+                            <input type="text" 
+                                   name="title" 
+                                   placeholder="Search by title..." 
+                                   value="{{ request.args.get('title', '') }}"
+                                   class="flex-1 p-3 rounded-lg border border-[#9ED5C5] focus:outline-none focus:ring-2 focus:ring-[#379683]">
+                            
+                            <input type="date" 
+                                   name="date" 
+                                   value="{{ request.args.get('date', '') }}"
+                                   class="sm:w-48 p-3 rounded-lg border border-[#9ED5C5] focus:outline-none focus:ring-2 focus:ring-[#379683]">
+                        </div>
+                        
+                        <div class="flex gap-4">
+                            <button type="submit" 
+                                    class="bg-[#379683] text-white py-2 px-4 rounded-lg shadow hover:bg-opacity-90 transition-colors flex items-center">
+                                <i class="fas fa-search mr-2"></i> Search
+                            </button>
+                            
+                            <a href="{{ url_for('diary_home') }}" class="reset-btn">
+                                <button type="button" 
+                                        class="bg-[#9ED5C5] text-gray-800 py-2 px-4 rounded-lg shadow hover:bg-opacity-90 transition-colors flex items-center">
+                                    <i class="fas fa-undo mr-2"></i> Reset
+                                </button>
+                            </a>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Search Results Info -->
+                {% if is_search %}
+                <div class="p-4 bg-white bg-opacity-50 text-center animate-fade-in">
+                    {% if entries|length == 0 %}
+                        <p class="text-gray-700 italic">No entries found matching your search criteria.</p>
+                    {% else %}
+                        <p class="text-[#379683] font-medium">Found {{ entries|length }} entries matching your search criteria.</p>
+                    {% endif %}
+                </div>
+                {% endif %}
+            </div>
+
+            <!-- Entries Display -->
+            {% if entries %}
+                <div class="space-y-4">
+                    {% for entry in entries %}
+                    <div class="bg-[#BCEAD5] rounded-xl shadow-md overflow-hidden animate-fade-in" id="entry-{{ entry[0] }}">
+                        <div class="p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#9ED5C5]">
+                            <div class="entry-info">
+                                <div class="text-xl font-semibold text-[#379683]">{{ entry[1] }}</div>
+                                <div class="text-sm text-gray-600">{{ entry[3] }}</div>
+                            </div>
+                            
+                            <div class="flex gap-2">
+                                <button class="view-btn bg-[#9ED5C5] text-gray-800 py-1 px-3 rounded-lg shadow hover:bg-opacity-90 transition-colors flex items-center text-sm" 
+                                        onclick="toggleEntryContent('{{ entry[0] }}')">
+                                    <i class="fas fa-eye mr-1"></i> View
+                                </button>
+                                
+                                <a href="{{ url_for('diary_delete', entry_id=entry[0]) }}"
+                                   onclick="return confirm('Are you sure you want to delete this entry?');">
+                                    <button class="delete-btn bg-red-500 text-white py-1 px-3 rounded-lg shadow hover:bg-opacity-90 transition-colors flex items-center text-sm">
+                                        <i class="fas fa-trash-alt mr-1"></i> Delete
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div class="entry-content p-4 bg-white bg-opacity-70" id="content-{{ entry[0] }}">
+                            <p class="whitespace-pre-wrap">{{ entry[2] }}</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="bg-white bg-opacity-70 p-8 rounded-xl shadow-md text-center">
+                    <i class="fas fa-book text-4xl text-[#379683] mb-4"></i>
+                    <p class="text-lg text-gray-700">No entries yet. Start writing your thoughts!</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="mt-12 py-6 bg-[#BCEAD5] text-gray-700">
+      <div class="max-w-3xl mx-auto px-4 text-center">
+        <p class="text-sm mb-4">© 2025 Nirvana. All rights reserved. <i class="fas fa-leaf text-2xl text-[#379683]"></i></p>
+
+        <div class="flex justify-center space-x-6 text-lg">
+          <a href="#" class="hover:text-[#379683]"><i class="fab fa-twitter"></i></a>
+          <a href="#" class="hover:text-[#379683]"><i class="fab fa-facebook"></i></a>
+          <a href="#" class="hover:text-[#379683]"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            const isOpen = !sidebar.classList.contains('-translate-x-full');
+
+            if (isOpen) {
+                sidebar.classList.add('-translate-x-full');
+                overlay.classList.add('hidden');
+            } else {
+                sidebar.classList.remove('-translate-x-full');
+                overlay.classList.remove('hidden');
+            }
+        }
+        
+        function toggleNewEntryForm() {
+            const form = document.querySelector('#newEntrySection form');
+            const button = document.querySelector('.toggle-form-btn');
+
+            if (form.classList.contains('hidden')) {
+                form.classList.remove('hidden');
+                button.innerHTML = '<i class="fas fa-times mr-2"></i> Hide Form';
+            } else {
+                form.classList.add('hidden');
+                button.innerHTML = '<i class="fas fa-pen mr-2"></i> Write New Entry';
+            }
+        }
+
+        function toggleEntryContent(entryId) {
+            const contentElement = document.getElementById(`content-${entryId}`);
+            const viewButton = document.querySelector(`#entry-${entryId} .view-btn`);
+
+            if (contentElement.style.display === 'block') {
+                contentElement.style.display = 'none';
+                viewButton.innerHTML = '<i class="fas fa-eye mr-1"></i> View';
+            } else {
+                contentElement.style.display = 'block';
+                viewButton.innerHTML = '<i class="fas fa-eye-slash mr-1"></i> Hide';
+            }
+        }
+    </script>
+</body>
+</html>

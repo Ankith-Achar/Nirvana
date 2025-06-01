@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OCD Assessment Questionnaire</title>
+    <link rel="icon" type="image/png" href="/static/img/4.png" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>OCD Assessment</h1>
+        
+        <div class="intro">
+            <p>This questionnaire is designed to help assess symptoms commonly associated with Obsessive-Compulsive Disorder (OCD). Please answer each question honestly, considering how you've felt over the past two weeks.</p>
+            <p>Rate each item on a scale from 0 (Not at all) to 5 (Extremely/Almost always).</p>
+            <p><strong>Important:</strong> This is not a diagnostic tool. If you're experiencing distress, please consult a mental health professional.</p>
+        </div>
+        
+        <div class="form-container">
+            <form action="{{ url_for('submit') }}" method="post">
+                <input type="hidden" name="condition" value="ocd">
+                
+                <div class="question">
+                    <p>1. How often have you been bothered by unwanted and intrusive thoughts that cause anxiety?</p>
+                    <div class="likert-scale">
+                        <div class="likert-option">
+                            <input type="radio" id="q1-0" name="q1" value="0" required>
+                            <label for="q1-0">Not at all</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q1-1" name="q1" value="1">
+                            <label for="q1-1">Rarely</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q1-2" name="q1" value="2">
+                            <label for="q1-2">Sometimes</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q1-3" name="q1" value="3">
+                            <label for="q1-3">Often</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q1-4" name="q1" value="4">
+                            <label for="q1-4">Very often</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q1-5" name="q1" value="5">
+                            <label for="q1-5">Almost always</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <p>2. How difficult has it been to stop or control these unwanted thoughts?</p>
+                    <div class="likert-scale">
+                        <div class="likert-option">
+                            <input type="radio" id="q2-0" name="q2" value="0" required>
+                            <label for="q2-0">Not difficult</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q2-1" name="q2" value="1">
+                            <label for="q2-1">Slightly difficult</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q2-2" name="q2" value="2">
+                            <label for="q2-2">Somewhat difficult</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q2-3" name="q2" value="3">
+                            <label for="q2-3">Moderately difficult</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q2-4" name="q2" value="4">
+                            <label for="q2-4">Very difficult</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q2-5" name="q2" value="5">
+                            <label for="q2-5"> Extremely difficult</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <p>3. How often have you felt compelled to perform certain behaviors or mental acts repeatedly?</p>
+                    <div class="likert-scale">
+                        <div class="likert-option">
+                            <input type="radio" id="q3-0" name="q3" value="0" required>
+                            <label for="q3-0">Not at all</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q3-1" name="q3" value="1">
+                            <label for="q3-1">Rarely</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q3-2" name="q3" value="2">
+                            <label for="q3-2">Sometimes</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q3-3" name="q3" value="3">
+                            <label for="q3-3">Often</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q3-4" name="q3" value="4">
+                            <label for="q3-4">Very often</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q3-5" name="q3" value="5">
+                            <label for="q3-5">Almost always</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <p>4. How much distress do you experience when unable to perform your rituals or compulsions?</p>
+                    <div class="likert-scale">
+                        <div class="likert-option">
+                            <input type="radio" id="q4-0" name="q4" value="0" required>
+                            <label for="q4-0">No distress</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q4-1" name="q4" value="1">
+                            <label for="q4-1">Mild distress</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q4-2" name="q4" value="2">
+                            <label for="q4-2">Moderate distress</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q4-3" name="q4" value="3">
+                            <label for="q4-3">Considerable distress</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q4-4" name="q4" value="4">
+                            <label for="q4-4">Severe distress</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q4-5" name="q4" value="5">
+                            <label for="q4-5">Extreme distress</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <p>5. How much time do you spend on obsessive thoughts or compulsive behaviors each day?</p>
+                    <div class="likert-scale">
+                        <div class="likert-option">
+                            <input type="radio" id="q5-0" name="q5" value="0" required>
+                            <label for="q5-0">None</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q5-1" name="q5" value="1">
+                            <label for="q5-1">Less than 1 hour</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q5-2" name="q5" value="2">
+                            <label for="q5-2">1-2 hours</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q5-3" name="q5" value="3">
+                            <label for="q5-3">2-3 hours</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q5-4" name="q5" value="4">
+                            <label for="q5-4">3-4 hours</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q5-5" name="q5" value="5">
+                            <label for="q5-5">More than 4 hours</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <p>6. How concerned are you about cleanliness, contamination, or germs?</p>
+                    <div class="likert-scale">
+                        <div class="likert-option">
+                            <input type="radio" id="q6-0" name="q6" value="0" required>
+                            <label for="q6-0">Not concerned</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q6-1" name="q6" value="1">
+                            <label for="q6-1">Slightly concerned</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q6-2" name="q6" value="2">
+                            <label for="q6-2">Somewhat concerned</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q6-3" name="q6" value="3">
+                            <label for="q6-3">Moderately concerned</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q6-4" name="q6" value="4">
+                            <label for="q6-4">Very concerned</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q6-5" name="q6" value="5">
+                            <label for="q6-5">Extremely concerned</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <p>7. How often do you need to check things repeatedly (e.g., locks, switches, appliances)?</p>
+                    <div class="likert-scale">
+                        <div class="likert-option">
+                            <input type="radio" id="q7-0" name="q7" value="0" required>
+                            <label for="q7-0">Not at all</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q7-1" name="q7" value="1">
+                            <label for="q7-1">Rarely</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q7-2" name="q7" value="2">
+                            <label for="q7-2">Sometimes</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q7-3" name="q7" value="3">
+                            <label for="q7-3">Often</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q7-4" name="q7" value="4">
+                            <label for="q7-4">Very often</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q7-5" name="q7" value="5">
+                            <label for="q7-5">Almost always</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <p>8. How strong is your need for symmetry, order, or exactness?</p>
+                    <div class="likert-scale">
+                        <div class="likert-option">
+                            <input type="radio" id="q8-0" name="q8" value="0" required>
+                            <label for="q8-0">Not strong</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q8-1" name="q8" value="1">
+                            <label for="q8-1">Mildly strong</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q8-2" name="q8" value="2">
+                            <label for="q8-2">Somewhat strong</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q8-3" name="q8" value="3">
+                            <label for="q8-3">Moderately strong</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q8-4" name="q8" value="4">
+                            <label for="q8-4">Very strong</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q8-5" name="q8" value="5">
+                            <label for="q8-5">Extremely strong</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <p>9. How often are you troubled by unwanted thoughts about harm coming to yourself or others?</p>
+                    <div class="likert-scale">
+                        <div class="likert-option">
+                            <input type="radio" id="q9-0" name="q9" value="0" required>
+                            <label for="q9-0">Not at all</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q9-1" name="q9" value="1">
+                            <label for="q9-1">Rarely</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q9-2" name="q9" value="2">
+                            <label for="q9-2">Sometimes</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q9-3" name="q9" value="3">
+                            <label for="q9-3">Often</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q9-4" name="q9" value="4">
+                            <label for="q9-4">Very often</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q9-5" name="q9" value="5">
+                            <label for="q9-5">Almost always</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <p>10. How often do you collect or have difficulty discarding items that most people would consider useless?</p>
+                    <div class="likert-scale">
+                        <div class="likert-option">
+                            <input type="radio" id="q10-0" name="q10" value="0" required>
+                            <label for="q10-0">Not at all</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q10-1" name="q10" value="1">
+                            <label for="q10-1">Rarely</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q10-2" name="q10" value="2">
+                            <label for="q10-2">Sometimes</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q10-3" name="q10" value="3">
+                            <label for="q10-3">Often</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q10-4" name="q10" value="4">
+                            <label for="q10-4">Very often</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q10-5" name="q10" value="5">
+                            <label for="q10-5">Almost always</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <p>11. How often do you feel the need to count, tap, or repeat certain words/phrases?</p>
+                    <div class="likert-scale">
+                        <div class="likert-option">
+                            <input type="radio" id="q11-0" name="q11" value="0" required>
+                            <label for="q11-0">Not at all</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q11-1" name="q11" value="1">
+                            <label for="q11-1">Rarely</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q11-2" name="q11" value="2">
+                            <label for="q11-2">Sometimes</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q11-3" name="q11" value="3">
+                            <label for="q11-3">Often</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q11-4" name="q11" value="4">
+                            <label for="q11-4">Very often</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q11-5" name="q11" value="5">
+                            <label for="q11-5">Almost always</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <p>12. How strong is your need for reassurance from others?</p>
+                    <div class="likert-scale">
+                        <div class="likert-option">
+                            <input type="radio" id="q12-0" name="q12" value="0" required>
+                            <label for="q12-0">Not strong</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q12-1" name="q12" value="1">
+                            <label for="q12-1">Mildly strong</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q12-2" name="q12" value="2">
+                            <label for="q12-2">Somewhat strong</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q12-3" name="q12" value="3">
+                            <label for="q12-3">Moderately strong</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q12-4" name="q12" value="4">
+                            <label for="q12-4">Very strong</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q12-5" name="q12" value="5">
+                            <label for="q12-5">Extremely strong</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <p>13. How concerned are you with doing things "just right" or perfectly?</p>
+                    <div class="likert-scale">
+                        <div class="likert-option">
+                            <input type="radio" id="q13-0" name="q13" value="0" required>
+                            <label for="q13-0">Not concerned</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q13-1" name="q13" value="1">
+                            <label for="q13-1">Slightly concerned</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q13-2" name="q13" value="2">
+                            <label for="q13-2">Somewhat concerned</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q13-3" name="q13" value="3">
+                            <label for="q13-3">Moderately concerned</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q13-4" name="q13" value="4">
+                            <label for="q13-4">Very concerned</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q13-5" name="q13" value="5">
+                            <label for="q13-5">Extremely concerned</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <p>14. How difficult is it for you to make everyday decisions?</p>
+                    <div class="likert-scale">
+                        <div class="likert-option">
+                            <input type="radio" id="q14-0" name="q14" value="0" required>
+                            <label for="q14-0">Not difficult</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q14-1" name="q14" value="1">
+                            <label for="q14-1">Slightly difficult</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q14-2" name="q14" value="2">
+                            <label for="q14-2">Somewhat difficult</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q14-3" name="q14" value="3">
+                            <label for="q14-3">Moderately difficult</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q14-4" name="q14" value="4">
+                            <label for="q14-4">Very difficult</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q14-5" name="q14" value="5">
+                            <label for="q14-5">Extremely difficult</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <p>15. How much have these symptoms interfered with your daily life, work, or relationships?</p>
+                    <div class="likert-scale">
+                        <div class="likert-option">
+                            <input type="radio" id="q15-0" name="q15" value="0" required>
+                            <label for="q15-0">Not at all</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q15-1" name="q15" value="1">
+                            <label for="q15-1">Slightly</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q15-2" name="q15" value="2">
+                            <label for="q15-2">Somewhat</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q15-3" name="q15" value="3">
+                            <label for="q15-3">Moderately</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q15-4" name="q15" value="4">
+                            <label for="q15-4">Considerably</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="q15-5" name="q15" value="5">
+                            <label for="q15-5">Extremely</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <button type="submit" class="submit-btn">Submit Assessment</button>
+                <a href="{{ url_for('test_home') }}" class="back-link">Back to Home</a>
+            </form>
+        </div>
+        
+        <div class="disclaimer">
+            <h3>Important Notice</h3>
+            <p>This questionnaire is for educational and self-assessment purposes only. It is not designed to diagnose Obsessive-Compulsive Disorder (OCD).</p>
+            <p>If you're experiencing severe symptoms that are causing significant distress, please seek professional help:</p>
+            <h3 class="text-xl font-bold mb-2">🇮🇳 Indian Helplines</h3>
+            <ul class="list-disc list-inside space-y-1 text-sm">
+                <li><strong>AASRA:</strong> +91-9820466726 (24x7 Suicide Prevention)</li>
+                <li><strong>NIMHANS Helpline:</strong> 080-46110007 (Govt. mental health support)</li>
+            </ul>
+            <h3 class="text-xl font-bold mb-2">🌍 International Helplines</h3>
+            <ul class="list-disc list-inside space-y-1 text-sm">
+                <li><strong>USA - Suicide & Crisis Lifeline:</strong> Dial 988 (24/7)</li>
+                <li><strong>Global Directory:</strong> <a href="https://findahelpline.com/" target="_blank" class="text-blue-600 underline">findahelpline.com</a></li>
+            </ul>
+        </div>
+        
+        
+    </div>
+</body>
+</html>

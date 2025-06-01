@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Phobia Explainer - Nirvana</title>
+    <link rel="icon" type="image/png" href="/static/img/4.png" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      .transition-transform {
+        transition: transform 0.3s ease-in-out;
+      }
+      
+      .animate-fade-in {
+        animation: fadeIn 0.5s ease-in-out;
+      }
+      
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      
+      .phobia-section {
+        transition: opacity 0.5s ease, transform 0.5s ease;
+      }
+      
+      .loader {
+        border: 5px solid #f3f3f3;
+        border-top: 5px solid #379683;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        animation: spin 1s linear infinite;
+      }
+      
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+    </style>
+</head>
+<body class="bg-[#DEF5E5] text-gray-800 min-h-screen flex flex-col">
+    <!-- Overlay -->
+    <div id="overlay" class="fixed inset-0 bg-black bg-opacity-40 z-30 hidden" onclick="toggleSidebar()"></div>
+
+    <!-- Sidebar -->
+    <div id="sidebar" class="w-60 bg-[#9ED5C5] p-6 fixed inset-y-0 left-0 transform -translate-x-full transition-transform z-40">
+      <h2 class="text-2xl font-bold mb-6 text-gray-800">Dashboard</h2>
+      <nav class="flex flex-col space-y-4 text-gray-700">
+        <a href="/home" class="hover:underline">Home</a>
+        <a href="/about" class="hover:underline">About Us</a>
+        <a href="/contact" class="hover:underline">Contact Us</a>
+        <a href="/login" class="hover:underline text-red-700">Logout</a>
+      </nav>
+    </div>
+
+    <!-- Main Content -->
+    <main class="flex-grow ml-0 w-full">
+        <!-- Toggle Button + Brand -->
+        <div class="flex items-center gap-3 p-4">
+            <button
+                onclick="toggleSidebar()"
+                class="text-3xl focus:outline-none text-gray-800"
+                aria-label="Open Sidebar"
+            >
+                ☰
+            </button>
+            <span class="text-2xl font-semibold text-[#379683]">Nirvana</span>
+        </div>
+
+        <!-- Phobia Explainer Container -->
+        <div class="max-w-3xl mx-auto px-4 py-6">
+            <div class="bg-[#BCEAD5] rounded-xl shadow-lg overflow-hidden mb-8">
+                <!-- Header -->
+                <div class="bg-[#379683] p-4 text-center">
+                    <h1 class="text-3xl font-bold text-white">Understand Your Fears</h1>
+                    <p class="text-white text-opacity-90 mt-1">Get insights about phobias and fears</p>
+                </div>
+
+                <!-- Search Form -->
+                <div class="p-6">
+                    <div class="flex flex-col sm:flex-row gap-3">
+                        <input 
+                            type="text" 
+                            id="fearInput" 
+                            placeholder="Enter your fear (e.g., heights, spiders, flying)" 
+                            class="flex-1 p-3 rounded-lg border border-[#9ED5C5] focus:outline-none focus:ring-2 focus:ring-[#379683]">
+                        
+                        <button 
+                            onclick="getFearExplanation()" 
+                            class="bg-[#379683] text-white py-2 px-6 rounded-lg shadow hover:bg-opacity-90 transition-colors flex items-center justify-center">
+                            <i class="fas fa-search mr-2"></i>
+                            Explain
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Loading Animation -->
+            <div 
+                id="loading" 
+                style="display: none;"
+                class="my-8 flex flex-col items-center justify-center">
+                <div class="loader"></div>
+                <div class="mt-4 text-gray-600">Analyzing your fear...</div>
+            </div>
+
+            <!-- Results Container -->
+            <div id="result" class="space-y-4"></div>
+        </div>
+    </main>
+
+    <!-- Footer - Always at bottom of screen -->
+    <footer class="py-6 bg-[#BCEAD5] text-gray-700">
+      <div class="max-w-3xl mx-auto px-4 text-center">
+        <p class="text-sm mb-4">© 2025 Nirvana. All rights reserved. <i class="fas fa-leaf text-2xl text-[#379683]"></i></p>
+
+        <div class="flex justify-center space-x-6 text-lg">
+          <a href="#" class="hover:text-[#379683]"><i class="fab fa-twitter"></i></a>
+          <a href="#" class="hover:text-[#379683]"><i class="fab fa-facebook"></i></a>
+          <a href="#" class="hover:text-[#379683]"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            const isOpen = !sidebar.classList.contains('-translate-x-full');
+
+            if (isOpen) {
+                sidebar.classList.add('-translate-x-full');
+                overlay.classList.add('hidden');
+            } else {
+                sidebar.classList.remove('-translate-x-full');
+                overlay.classList.remove('hidden');
+            }
+        }
+        
+        async function getFearExplanation() {
+            const fearInput = document.getElementById('fearInput');
+            const loading = document.getElementById('loading');
+            const result = document.getElementById('result');
+
+            if (!fearInput.value.trim()) {
+                alert('Please enter a fear to explain');
+                return;
+            }
+
+            loading.style.display = 'flex';
+            result.innerHTML = '';
+
+            try {
+                const response = await fetch('/explain_fear', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ fear: fearInput.value }),
+                });
+
+                const data = await response.json();
+
+                if (data.error) {
+                    result.innerHTML = `
+                        <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 rounded animate-fade-in">
+                            <div class="flex items-center">
+                                <i class="fas fa-exclamation-circle mr-3 text-xl"></i>
+                                <span>${data.error}</span>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    // Parse and format the explanation
+                    const formattedHtml = formatExplanation(data.explanation);
+                    result.innerHTML = formattedHtml;
+
+                    // Add animation to the sections
+                    const sections = document.querySelectorAll('.phobia-section');
+                    sections.forEach((section, index) => {
+                        section.style.opacity = '0';
+                        section.style.transform = 'translateY(20px)';
+                        setTimeout(() => {
+                            section.style.opacity = '1';
+                            section.style.transform = 'translateY(0)';
+                        }, index * 150);
+                    });
+                }
+            } catch (error) {
+                result.innerHTML = `
+                    <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 rounded animate-fade-in">
+                        <div class="flex items-center">
+                            <i class="fas fa-exclamation-circle mr-3 text-xl"></i>
+                            <span>Error: ${error.message}</span>
+                        </div>
+                    </div>
+                `;
+            } finally {
+                loading.style.display = 'none';
+            }
+        }
+
+        function cleanMarkdown(text) {
+            // Remove Markdown bold markers (**) and other potential markdown
+            return text.replace(/\*\*/g, '').replace(/\*/g, '');
+        }
+
+        function formatExplanation(text) {
+            // Split the text into sections
+            const sections = text.split('\n\n').filter(section => section.trim());
+
+            let html = '';
+
+            sections.forEach(section => {
+                if (section.trim()) {
+                    const lines = section.trim().split('\n');
+                    const titleLine = lines[0];
+
+                    // Check if the title contains a colon
+                    if (titleLine.includes(':')) {
+                        // Split at the first colon
+                        const [titlePart, contentPart] = titleLine.split(':', 2);
+                        const title = cleanMarkdown(titlePart.trim());
+
+                        html += `
+                            <div class="phobia-section bg-[#BCEAD5] rounded-xl shadow-md overflow-hidden mb-4">
+                                <div class="bg-[#9ED5C5] p-3 border-l-4 border-[#379683]">
+                                    <h3 class="text-lg font-semibold text-gray-800">${title}</h3>
+                                </div>
+                                <div class="p-4 bg-white bg-opacity-80">
+                        `;
+
+                        // If there's content after the colon on the same line
+                        if (contentPart && contentPart.trim()) {
+                            html += `<p class="mb-2">${cleanMarkdown(contentPart.trim())}</p>`;
+                        }
+
+                        // Process the rest of the lines
+                        const content = lines.slice(1);
+
+                        if (content.length > 0) {
+                            if (content[0] && content[0].trim().startsWith('-')) {
+                                // Bullet point list
+                                html += '<ul class="list-disc pl-5 space-y-1">';
+                                content.forEach(item => {
+                                    if (item.trim()) {
+                                        const bulletText = cleanMarkdown(item.replace('-', '').trim());
+                                        html += `<li class="text-gray-700">${bulletText}</li>`;
+                                    }
+                                });
+                                html += '</ul>';
+                            } else {
+                                // Regular text content
+                                content.forEach(line => {
+                                    if (line.trim()) {
+                                        html += `<p class="mb-2">${cleanMarkdown(line.trim())}</p>`;
+                                    }
+                                });
+                            }
+                        }
+
+                        html += `
+                                </div>
+                            </div>
+                        `;
+                    } else {
+                        // Handle section without a colon (unlikely but just in case)
+                        const title = cleanMarkdown(titleLine.trim());
+                        const content = lines.slice(1);
+
+                        html += `
+                            <div class="phobia-section bg-[#BCEAD5] rounded-xl shadow-md overflow-hidden mb-4">
+                                <div class="bg-[#9ED5C5] p-3 border-l-4 border-[#379683]">
+                                    <h3 class="text-lg font-semibold text-gray-800">${title}</h3>
+                                </div>
+                                <div class="p-4 bg-white bg-opacity-80">
+                        `;
+
+                        if (content.length > 0) {
+                            if (content[0] && content[0].trim().startsWith('-')) {
+                                // Bullet point list
+                                html += '<ul class="list-disc pl-5 space-y-1">';
+                                content.forEach(item => {
+                                    if (item.trim()) {
+                                        const bulletText = cleanMarkdown(item.replace('-', '').trim());
+                                        html += `<li class="text-gray-700">${bulletText}</li>`;
+                                    }
+                                });
+                                html += '</ul>';
+                            } else {
+                                // Regular text content
+                                content.forEach(line => {
+                                    if (line.trim()) {
+                                        html += `<p class="mb-2">${cleanMarkdown(line.trim())}</p>`;
+                                    }
+                                });
+                            }
+                        }
+
+                        html += `
+                                </div>
+                            </div>
+                        `;
+                    }
+                }
+            });
+
+            return html;
+        }
+
+        document.getElementById('fearInput').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                getFearExplanation();
+            }
+        });
+    </script>
+</body>
+</html>
